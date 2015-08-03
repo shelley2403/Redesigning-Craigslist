@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up</title>
+    <meta charset="UTF-8">
+     <!-- Bootstrap -->
+     <link href="css/bootstrap.css"  rel="stylesheet" type="text/css">
+      <link href="css/bootstrap-theme.css"  rel="stylesheet" type="text/css">
+      <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+     <link href="css/signup.css"  rel="stylesheet" type="text/css">
+      <link href="css/signin.css"  rel="stylesheet" type="text/css">
+	  <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+	<script src="http://code.angularjs.org/1.2.6/angular.js"></script>
+	<script src="js/app.js"></script>
+	 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	
+	
+	
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+
+		$('#username').keyup(function(){ // Keyup function for check the user action in input
+		var Username = $(this).val(); // Get the username textbox using $(this) or you can use directly $('#username')
+		var UsernameAvailResult = $('#username_avail_result'); // Get the ID of the result where w
+		
+		if(Username.length > 2) { // check if greater than 2 (minimum 3)
+			UsernameAvailResult.html('Loading..'); // Preloader, use can use loading animation here
+			var UrlToPass = 'action=username_availability&username='+Username;
+			$.ajax({ // Send the username val to another checker.php using Ajax in POST menthod
+			type : 'POST',
+			data : UrlToPass,
+			url  : 'checker.php',
+			success: function(responseText){ // Get the result and asign to each cases
+				if(responseText == 0){
+					UsernameAvailResult.html('<span class="success">Username name available</span>');
+					
+				}
+				else if(responseText > 0){
+					UsernameAvailResult.html('<span class="error">Username already taken</span>');
+					
+				}
+				else{
+					alert('Problem with sql query');
+				}
+			}
+			});
+		}else{
+			UsernameAvailResult.html('Enter atleast 3 characters');
+		}
+		if(Username.length == 0) {
+			UsernameAvailResult.html('');
+		}
+	});
+	
+	$('#email').keyup(function(){ // Keyup function for check the user action in input
+		var Email = $(this).val(); // Get the username textbox using $(this) or you can use directly $('#username')
+		var EmailAvailResult = $('#email_avail_result'); // Get the ID of the result where w
+		
+		if(Email.length > 2) { // check if greater than 2 (minimum 3)
+			EmailAvailResult.html('Loading..'); // Preloader, use can use loading animation here
+			var UrlToPass = 'action=email_availability&email='+Email;
+			$.ajax({ // Send the username val to another checker.php using Ajax in POST menthod
+			type : 'POST',
+			data : UrlToPass,
+			url  : 'checker.php',
+			success: function(responseText){ // Get the result and asign to each cases
+			
+				if(responseText == 0){
+					EmailAvailResult.html('<span class="success">Email name available</span>');
+					
+				}
+				else if(responseText > 0){
+					EmailAvailResult.html('<label id="hello123" class="error">Email already taken</label>');
+					
+				}
+				else{
+					alert('Problem with sql query');
+				}
+			}
+			});
+		}else{
+			EmailAvailResult.html('Enter atleast 3 characters');
+		}
+		if(Email.length == 0) {
+			EmailAvailResult.html('');
+		}
+	});
+	
+	
+	
+	
+	$('#password, #username').keydown(function(e) { // Dont allow users to enter spaces for their username and passwords
+		if (e.which == 32) {
+			return false;
+  		}
+	});
+	$('#password').keyup(function() { // As same using keyup function for get user action in input
+		var PasswordLength = $(this).val().length; // Get the password input using $(this)
+		var PasswordStrength = $('#password_strength'); // Get the id of the password indicator display area
+		
+		if(PasswordLength <= 0) { // Check is less than 0
+			PasswordStrength.html(''); // Empty the HTML
+			PasswordStrength.removeClass('normal weak strong verystrong'); //Remove all the indicator classes
+		}
+		if(PasswordLength > 0 && PasswordLength < 4) { // If string length less than 4 add 'weak' class
+			PasswordStrength.html('weak');
+			PasswordStrength.removeClass('normal strong verystrong').addClass('weak');
+		}
+		if(PasswordLength > 4 && PasswordLength < 8) { // If string length greater than 4 and less than 8 add 'normal' class
+			PasswordStrength.html('Normal');
+			PasswordStrength.removeClass('weak strong verystrong').addClass('normal');			
+		}	
+		if(PasswordLength >= 8 && PasswordLength < 12) { // If string length greater than 8 and less than 12 add 'strong' class
+			PasswordStrength.html('Strong');
+			PasswordStrength.removeClass('weak normal verystrong').addClass('strong');
+		}
+		if(PasswordLength >= 12) { // If string length greater than 12 add 'verystrong' class
+			PasswordStrength.html('Very Strong');
+			PasswordStrength.removeClass('weak normal strong').addClass('verystrong');
+		}
+	});
+});
+</script>
+
+<script>
+
+	 function chkform()
+    {
+	
+	var x=document.forms["myForm"]["fullName"].value;
+	var y=document.forms["myForm"]["username"].value;
+	var z=document.forms["myForm"]["password"].value;
+	var w=document.forms["myForm"]["contact"].value;
+	
+	
+	if (x==null || x=="")
+  {
+  alert("Full Name must be filled out");
+  return false;
+  }
+	
+	if (y==null || y=="")
+  {
+  alert("Username must be filled out");
+  return false;
+  }
+  
+  if (z==null || z=="")
+  {
+  alert("Password must be filled out");
+  return false;
+  }
+  
+  if (w==null || w=="")
+  {
+  alert("Contact must be filled out");
+  return false;
+  }
+	else
+	{
+	var x=document.forms["myForm"]["email"].value;
+var atpos=x.indexOf("@");
+var dotpos=x.lastIndexOf(".");
+if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+  {
+  alert("Not a valid e-mail address");
+  return false;
+  }
+}	
+var x =	document.getElementById('hello123');
+	
+		
+	if(x.innerHTML == 'Email already taken')
+	{
+		alert("Email has already been taken.")
+		return false;
+	}	
+		return true;
+	
+	
+	
+	
+	}
+	
+	</script>
+
+
+<style type="text/css">
+
+.success{
+	color:#009900;
+}
+.error{
+	color:#F33C21;
+}
+
+.username_avail_result{
+	display:block;
+	width:300px;
+}
+.password_strength {
+	display:block;
+	width:300px;
+	padding:3px;
+	text-align:center;
+	color:#333;
+	font-size:14px;
+	backface-visibility:#FFF;
+	font-weight:bold;
+}
+/* Password strength indicator classes weak, normal, strong, verystrong*/
+.password_strength.weak{
+	background:#e84c3d;
+}
+.password_strength.normal{
+	background:#f1c40f;
+}
+.password_strength.strong{
+	background:#27ae61;
+}
+.password_strength.verystrong{
+	background:#2dcc70;
+	color:#FFF;
+</style>
+
+
+	  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	
+	</head>
+ <body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.jsp">Craigslist</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+			<li><a href="signup.html">Register</a></li>
+			<li><a href="signin.html">Sign in</a></li>
+          
+            </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	
+
+
+    
+    <div id="header">
+		<div class="container">
+		
+
+	
+	
+      <form class="form-signin" onsubmit="return chkform()" action="registercustomer.php" role="form" method="post" name="myForm">
+	  
+        <h2 class="form-signin-heading">Please Fill The Details: </h2>
+       <label id="count"></label>
+       
+        <input type="text" class="form-control" id="fullName" placeholder="Full Name" name="fullName"  autofocus>
+        <br/>
+       
+        <input type="username" class="form-control" id="username" maxlength="20" placeholder="Username" name="username" onblur="this.value=removeSpaces(this.value)" onkeypress="valid(this)" onblur="valid(this)" required autofocus>
+		<div class="username_avail_result" id="username_avail_result"></div>
+        <br/>
+        <input type="password" class="form-control" id="password" maxlength="20" placeholder="Password" name="password" onblur="this.value=removeSpaces(this.value)" required autofocus>
+        <div class="password_strength" id="password_strength"></div>
+        <br/>
+         <input type="text" class="form-control" id="email" placeholder="Email Address" name="email" onblur="this.value=removeSpaces(this.value)" required autofocus>
+		 <div class="email_avail_result" id="email_avail_result"></div>
+        <br/>
+         <input type="text" class="form-control" id="contact" placeholder="Contact Details" name="contact" onkeypress="return isNumberKey(event)" required autofocus>
+        <br/>
+		<div class="row">
+		<div class="col-xs-4"><h4>I am :</h4></div>
+        <div class="col-xs-6"><div class="radio">
+		
+  <label>
+    <input type="radio" name="type" id="optionsRadios1" value="Individual" checked>
+    An Individual
+  </label>
+</div>
+<div class="radio">
+  <label>
+	
+    <input type="radio" name="type" id="optionsRadios2" value="Professional">
+    A Professional
+  </label>
+</div></div>
+		<br/><br/>
+		<div class="row"><div class="col-xs-3"></div>
+        <div class="col-xs-1"><input id="send" type="submit" class="btn-primary" value="Register Your Account" ></div></div>
+      </form>
+	</div>
+</div>
+</div>
+<div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3">
+					<p class="copyright">Copyright &copy; 2014 - Craigslist.com</p>
+			</div>
+		</div>		
+	</div>	
+	</div>
+   
+    <script src="js/bootstrap.min.js" /></script>
+
+<script src="js/bootstrap.js" /></script>
+  </body>
+</html>
+

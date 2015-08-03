@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>My Web Design Project</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+   <link href="css/signin.css" rel="stylesheet">
+   
+    <link href="css/styles.css" rel="stylesheet">
+    
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	
+		<script>
+		$(function() {
+			
+			
+			
+			$("#json-one").change(function() {
+				var $dropdown = $(this);
+					
+				
+				$.getJSON("jsondata/data.json", function(data) {
+				
+					var key = $dropdown.val();
+					var vals = [];
+					
+					switch(key) {
+					case 'ForSale':
+							vals = data.ForSale.split(",");
+							break;
+						case 'Community':
+							vals = data.Community.split(",");
+							break;
+						case 'Vehicles':
+							vals = data.Vehicles.split(",");
+							break;
+						case 'RealEstate':
+							vals = data.RealEstate.split(",");
+							break;
+						case 'Jobs':
+							vals = data.Jobs.split(",");
+							break;
+						case 'Classes':
+							vals = data.Classes.split(",");
+							break;
+						case 'base':
+							vals = ['Please choose from above'];
+					}
+					
+					var $jsontwo = $("#json-two");
+					$jsontwo.empty();
+					$.each(vals, function(index, value) {
+						$jsontwo.append("<option>" + value + "</option>");
+					});
+			
+				});
+			});
+
+		});
+	</script>
+	  	
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Craigslist</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Sign up</a></li>
+			<li><a href="#">Sign in</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+	<div id="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<h1>Craigslist</h1>
+					<h2 class="subtitle">Home is where your Heart is ...</h2><h2 class="subtitle">Looking for your next home sweet home? Come see what makes us exceptional.</h2>
+					<form class="form-inline signup" role="form">
+					  <button type="submit" class="btn btn-theme">Post your free add</button>
+					</form>					
+				</div>
+				<div class="col-lg-4 col-lg-offset-2">
+					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					  <ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					
+					  </ol>					
+					  <!-- slides -->
+					  <div class="carousel-inner">
+						<div class="item active">
+						  <img src="images/4.jpg" alt="">
+						</div>
+						<div class="item">
+						  <img src="images/2.jpg" alt="" >
+						</div>
+						<div class="item">
+						  <img src="images/3.jpg" alt="" >
+						</div>
+						
+					  </div>
+					</div>		
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div id="header1">
+		<div class="container">
+
+<h2 align="center">Please select your Preferences below </h2>
+    
+    <form class="form-signin" action="searched.php" method="post">
+    <h2 class="form-signin-heading">Select Your Location</h2>
+     <label id="count"></label> 
+      <div class="row">
+        <div class="col-xs-8"><input id="geocomplete" class="form-control" type="text" placeholder="Type the Zipcode" onkeypress="return isNumberKey(event)"/> 
+</div>
+		<div class="col-xs-4"> <input id="find" type="button" class="btn btn-theme" value="Find" /></div>
+    </div>
+      
+     
+      
+<br/>
+      <fieldset>
+	  <input name="postal_code" class="form-control" type="text" value="" placeholder="Zipcode">
+<br/>
+        <input class="form-control" id="country" placeholder="Country" name="country" type="text" value="">
+<br/>
+        <input class="form-control" id="state" placeholder="State" name="administrative_area_level_1" type="text" value="">
+<br/>        
+        <input class="form-control" id="locality" placeholder="Locality" name="locality" type="text" value="">
+<br/>
+
+<h2 class="form-signin-heading">Select Your Category</h2>
+
+<select name="json-one" class="form-control input-sm" class="input-large" id="json-one">
+			<option selected value="base">Please Select</option>
+			<option value="ForSale">ForSale</option>
+			<option value="Community">Community</option>
+			<option value="Vehicles">Vehicles</option>
+			<option value="RealEstate">RealEstate</option>
+			<option value="Jobs">Jobs</option>
+			<option value="Classes">Classes</option>
+		</select>
+		<br/>
+		<select name="json-two" class="form-control input-sm" class="input-large" id="json-two">
+			<option>Please choose from above</option>
+		</select>
+       
+      </fieldset>
+    <br/>
+   
+    <input id="find1" type="submit" class="btn btn-theme" value="Submit"/>
+    </form>
+    </div>
+</div>
+	<br/><br/><br/><br/>
+	 <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Connect with us:</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li><a href="#" class="btn btn-default btn-lg"><img src="glyphicons_free/glyphicons_social/png/glyphicons_social_31_twitter.png" /><span class="network-name">Twitter</span></a>
+                        </li>
+                        <li><a href="#" class="btn btn-default btn-lg"><img src="glyphicons_free/glyphicons_social/png/glyphicons_social_30_facebook.png" /><span class="network-name">Facebook</span></a>
+                        </li>
+                        <li><a href="#" class="btn btn-default btn-lg"><img src="glyphicons_free/glyphicons_social/png/glyphicons_social_17_linked_in.png" /><span class="network-name">Linkedin</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+	
+	 <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="#home">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Your Company 2013. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="<js/bootstrap.min.js" /></script>
+
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+
+<script src="js/jquery.geocomplete.js" /></script>
+
+    <script>
+      $(function(){
+        $("#geocomplete").geocomplete({
+          details: "form",
+          types: ["geocode", "establishment"],
+        });
+
+        $("#find").click(function(){
+          $("#geocomplete").trigger("geocode");
+        });
+      });
+    </script>
+<script src="js/bootstrap.js"></script>
+	
+  </body>
+</html>

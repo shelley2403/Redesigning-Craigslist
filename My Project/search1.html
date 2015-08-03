@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>My Web Design Project</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+	<script>
+		$(function() {
+			
+			$("#json-one").change(function() {
+				var $dropdown = $(this);
+				
+			
+				$.getJSON("jsondata/data.json", function(data) {
+				
+					var key = $dropdown.val();
+					var vals = [];
+					alert(key);	
+					switch(key) {
+					case 'ForSale':
+							vals = data.ForSale.split(",");
+							break;
+						case 'Community':
+							vals = data.Community.split(",");
+							break;
+						case 'Vehicles':
+							vals = data.Vehicles.split(",");
+							break;
+						case 'RealEstate':
+							vals = data.RealEstate.split(",");
+							break;
+						case 'Jobs':
+							vals = data.Jobs.split(",");
+							break;
+						case 'Classes':
+							vals = data.Classes.split(",");
+							break;
+						case 'base':
+							vals = ['Please choose from above'];
+					}
+					
+					var $jsontwo = $("#json-two");
+					$jsontwo.empty();
+					$.each(vals, function(index, value) {
+						$jsontwo.append("<option>" + value + "</option>");
+					});
+			
+				});
+			});
+
+		});
+	</script>
+	</head>
+   <body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Craigslist</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="">Register</a></li>
+			<li><a href="">Sign in</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+
+<div id="header">
+		<div class="container">
+
+<h2 align="center">Please select your Preferences below </h2>
+
+
+    
+    
+    <form class="form-signin" action="searched.php" method="post">
+    <h2 class="form-signin-heading">Select Your Location</h2>
+     <label id="count"></label> 
+      <div class="row">
+        <div class="col-xs-8"><input id="geocomplete" class="form-control" type="text" placeholder="Type the Zipcode" onkeypress="return isNumberKey(event)"/> 
+</div>
+		<div class="col-xs-4"> <input id="find" type="button" class="btn btn-theme" value="Find" /></div>
+    </div>
+      
+     
+      
+<br/>
+      <fieldset>
+		<input name="postal_code" class="form-control" type="text" value="" placeholder="Zipcode">
+        <input class="form-control" id="country" placeholder="Country" name="country" type="text" value="">
+<br/>
+        <input class="form-control" id="state" placeholder="State" name="administrative_area_level_1" type="text" value="">
+<br/>        
+        <input class="form-control" id="locality" placeholder="Locality" name="locality" type="text" value="">
+<br/>
+
+<h2 class="form-signin-heading">Select Your Category</h2>
+
+<select name="json-one" class="form-control input-sm" class="input-large" id="json-one">
+			<option selected value="base">Please Select</option>
+			<option value="ForSale">ForSale</option>
+			<option value="Community">Community</option>
+			<option value="Vehicles">Vehicles</option>
+			<option value="RealEstate">RealEstate</option>
+			<option value="Jobs">Jobs</option>
+			<option value="Classes">Classes</option>
+		</select>
+		<br/>
+		<select name="json-two" class="form-control input-sm" class="input-large" id="json-two">
+			<option>Please choose from above</option>
+		</select>
+       
+      </fieldset>
+    <br/>
+   
+    <input id="find1" type="submit" class="btn btn-theme" value="Submit"/>
+    </form>
+    </div>
+</div>
+<br/>
+<div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3">
+					<p class="copyright">Copyright &copy; 2014 - Craigslist.com</p>
+			</div>
+		</div>		
+	</div>	
+	</div>
+        
+	<script src = "js/bootstrap.js"></script>
+		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js'></script>
+		
+    
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+
+<script src="js/jquery.geocomplete.js"></script>
+
+    <script>
+      $(function(){
+        $("#geocomplete").geocomplete({
+          details: "form",
+          types: ["geocode", "establishment"],
+        });
+
+        $("#find").click(function(){
+          $("#geocomplete").trigger("geocode");
+        });
+      });
+    </script>
+		
+	
+    </body>
+</html>
+		
+	

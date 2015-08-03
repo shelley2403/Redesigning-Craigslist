@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	
+	<title>Dynamic Dropdown</title>
+	
+	<link rel='stylesheet' href='css/style.css'>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<script>
+		$(function() {
+			
+			$("#json-one").change(function() {
+				var $dropdown = $(this);
+					
+			
+				$.getJSON("jsondata/data.json", function(data) {
+				
+					var key = $dropdown.val();
+					var vals = [];
+					alert(key);	
+					switch(key) {
+					case 'ForSale':
+							vals = data.ForSale.split(",");
+							break;
+						case 'Community':
+							vals = data.Community.split(",");
+							break;
+						case 'Vehicles':
+							vals = data.Vehicles.split(",");
+							break;
+						case 'RealEstate':
+							vals = data.RealEstate.split(",");
+							break;
+						case 'Jobs':
+							vals = data.Jobs.split(",");
+							break;
+						case 'Classes':
+							vals = data.Classes.split(",");
+							break;
+						case 'base':
+							vals = ['Please choose from above'];
+					}
+					
+					var $jsontwo = $("#json-two");
+					$jsontwo.empty();
+					$.each(vals, function(index, value) {
+						$jsontwo.append("<option>" + value + "</option>");
+					});
+			
+				});
+			});
+
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="page-wrap">
+		<select id="json-one">
+			<option selected value="base">Please Select</option>
+			<option value="ForSale">ForSale</option>
+			<option value="Community">Community</option>
+			<option value="Vehicles">Vehicles</option>
+			<option value="RealEstate">RealEstate</option>
+			<option value="Jobs">Jobs</option>
+			<option value="Classes">Classes</option>
+		</select>
+		<br />
+	
+		<select id="json-two">
+			<option>Please choose from above</option>
+		</select>
+	
+	</div>
+</body>
+
+</html>
